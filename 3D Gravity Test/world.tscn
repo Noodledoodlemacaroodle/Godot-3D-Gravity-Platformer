@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://blykqo31getue"]
+
+[ext_resource type="PackedScene" uid="uid://cjanmtkr4avbs" path="res://player.tscn" id="1_r2ewv"]
+[ext_resource type="Script" path="res://Camera3D.gd" id="2_drlwq"]
+[ext_resource type="Script" path="res://Camera_root.gd" id="2_shfw1"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_0akmi"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1bvcj"]
+
+[node name="World" type="Node3D"]
+
+[node name="Player" parent="." instance=ExtResource("1_r2ewv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.19659, 0)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00431991, 1.32996, 4.32452)
+script = ExtResource("2_drlwq")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.859763, 0.0472046, -0.508508, 0.000969905, 0.995566, 0.0940581, 0.510693, -0.0813608, 0.855905, 0, 4.23907, 0)
+
+[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.529327, -0.106378, 0.841722, 0.000881485, 0.992177, 0.124838, -0.848417, -0.0653381, 0.52528, 3.35813, 4.24285, 1.99471)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(39.8215, 0, 0, 0, 0.0625726, 0, 0, 0, 27.4224, 0, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+mesh = SubResource("BoxMesh_0akmi")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_1bvcj")
+
+[node name="Camera_root" type="Node3D" parent="."]
+script = ExtResource("2_shfw1")

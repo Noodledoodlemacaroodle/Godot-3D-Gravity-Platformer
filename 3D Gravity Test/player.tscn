@@ -1,0 +1,98 @@
+[gd_scene load_steps=8 format=3 uid="uid://cjanmtkr4avbs"]
+
+[ext_resource type="Script" path="res://Player.gd" id="1_ljvas"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_c6auu"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_uu5nl"]
+
+[sub_resource type="Animation" id="Animation_qkyim"]
+resource_name = "Idle"
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Torso")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0, 0.5, 1, 0, -0.072322, 0, 1, 1, 0, 0, 0)
+
+[sub_resource type="Animation" id="Animation_bmjdr"]
+resource_name = "Jump"
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Leg_l")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, -0.316948, -0.267147, 0.5, 1, 0, -0.451873, -0.267147, 1, 1, 0, -0.316948, -0.267147)
+tracks/1/type = "position_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Leg_r")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 0, -0.32299, 0.252429, 0.5, 1, 0, -0.462817, 0.252429, 1, 1, 0, -0.32299, 0.252429)
+
+[sub_resource type="Animation" id="Animation_qygsn"]
+resource_name = "Run"
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Torso")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, -0.21251, 0, 0.977159, 0.5, 1, 0, 0.374323, 0, 0.927298, 1, 1, 0, -0.21251, 0, 0.977159)
+tracks/1/type = "position_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Leg_r")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, -0.378524, -0.671127, 0.216386, 0.5, 1, 0.40988, -0.671127, 0.216386, 1, 1, -0.378524, -0.671127, 0.216386)
+tracks/2/type = "position_3d"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Leg_l")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = PackedFloat32Array(0, 1, 0.311839, -0.634731, -0.264128, 0.5, 1, -0.32055, -0.634731, -0.264128, 1, 1, 0.311839, -0.634731, -0.264128)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_chnh7"]
+_data = {
+"Idle": SubResource("Animation_qkyim"),
+"Jump": SubResource("Animation_bmjdr"),
+"Run": SubResource("Animation_qygsn")
+}
+
+[node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_ljvas")
+
+[node name="Player_col" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_c6auu")
+
+[node name="Torso" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.909679, 0, -0.415312, 0, 1, 0, 0.415312, 0, 0.909679, 0, 0, 0)
+mesh = SubResource("BoxMesh_uu5nl")
+
+[node name="arm_l" type="MeshInstance3D" parent="Torso"]
+transform = Transform3D(0.159574, 0, 0, 0, 0.136144, 0, 0, 0, 0.510733, 0, 0.0311966, -0.686625)
+mesh = SubResource("BoxMesh_uu5nl")
+skeleton = NodePath("../..")
+
+[node name="arm_r" type="MeshInstance3D" parent="Torso"]
+transform = Transform3D(0.159574, 0.000137188, -0.000919707, -0.000157577, 0.136135, 0.00570683, 0.000289132, -0.001521, 0.510701, 0, 0, 0.708735)
+mesh = SubResource("BoxMesh_uu5nl")
+skeleton = NodePath("../..")
+
+[node name="Leg_l" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.345346, 0, 0, 0, 0.437115, 0, 0, 0, 0.111983, 0.000720024, -0.607904, -0.270657)
+mesh = SubResource("BoxMesh_uu5nl")
+
+[node name="Leg_r" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.345346, 0, 0, 0, 0.437115, 0, 0, 0, 0.111983, 0, -0.629105, 0.252429)
+mesh = SubResource("BoxMesh_uu5nl")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_chnh7")
+}
